@@ -18,8 +18,8 @@ jobs:
         paths:
         - /home/circleci/.local/lib/
     - run:
-        command: echo "Test"
-        name: Test
+        command: ps aux | grep odoo
+        name: Check if Odoo Running
 workflows:
   main:
     jobs:
