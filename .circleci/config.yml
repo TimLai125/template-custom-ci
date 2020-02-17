@@ -1,21 +1,27 @@
-version: 2.1
-
-orbs:
-  python: circleci/python@0.2.1
-
+# Orb 'circleci/python@0.2.1' resolved to 'circleci/python@0.2.1'
+version: 2
 jobs:
   build-and-test:
-    executor: python/default
+    docker:
+    - image: rfhk/odoo:12.0
     steps:
-      - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
-      - run:
-          command: ./manage.py test
-          name: Test
-
+    - checkout
+    - restore_cache:
+        keys:
+        - pip-{{ checksum "requirements.txt"  }}
+    - run:
+        command: |
+			pip install -r requirements.txt
+        name: Install Dependencies
+    - save_cache:
+        key: pip-{{ checksum "requirements.txt"  }}
+        paths:
+        - /home/circleci/.local/lib/
+    - run:
+        command: docker restart odoo
+        name: Test
 workflows:
   main:
     jobs:
-      - build-and-test
+    - build-and-test
+  version: 2
