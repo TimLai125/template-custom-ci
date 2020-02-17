@@ -18,7 +18,7 @@ jobs:
         paths:
         - /home/circleci/.local/lib/
     - run:
-        command: docker restart odoo
+        command: echo "Test"
         name: Test
 workflows:
   main:
