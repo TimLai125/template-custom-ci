@@ -18,8 +18,8 @@ jobs:
         paths:
         - /home/circleci/.local/lib/
     - run:
-        command: echo "Test"
-        name: Test
+        command: ls /odoo
+        name: Odoo Directory
 workflows:
   main:
     jobs:
